@@ -4,6 +4,7 @@ node_modules/
 dist/
 coverage/
 *.tsbuildinfo
+data/
 
 # Local secrets
 .env

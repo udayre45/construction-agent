@@ -105,6 +105,15 @@ Run ingestion only when Salesforce source data should be mirrored again:
 npm run ingest
 ```
 
+Prepare the local Phase 6 invoice sample and test one image with Claude Vision:
+
+```powershell
+npm run invoice:sample
+npm run invoice:vision
+```
+
+The sample command audits the downloaded ZIP and extracts 20 deterministic annotated image pairs into the Git-ignored `data/invoice-sample` directory. The vision command extracts one invoice and compares reliable fields with the dataset ground truth.
+
 ## Verification strategy
 
 The regression suite covers permits, projects, contract terms, and unavailable-data questions. Exact expected facts include:
@@ -129,4 +138,4 @@ Permit and project requests do not load the embedding model. The first contract 
 
 ## Current scope
 
-The core permit, project, and contract MVP is deployed. Purchase-order images, OCR, and line-item spend queries are the runbook's deferred Phase 6 and require a separately validated extraction pipeline before financial aggregates should depend on them.
+The core permit, project, and contract MVP is deployed. Phase 6 data preparation found 1,414 valid annotated image pairs among 1,489 Batch 1 images. The first Claude Vision smoke test passed all nine ground-truth comparisons. Purchase-order loading and line-item spend queries remain gated on a multi-invoice extraction evaluation.

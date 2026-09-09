@@ -10,6 +10,8 @@
     "ingest": "tsx ingest.ts",
     "agent": "tsx test.ts",
     "eval": "tsx eval/run.ts",
+    "invoice:sample": "python scripts/prepare_invoice_sample.py",
+    "invoice:vision": "tsx scripts/test-invoice-vision.ts",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [],
