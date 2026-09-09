@@ -1,10 +1,14 @@
 import { env, pipeline } from "@huggingface/transformers";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
 const MODEL_ID = "Xenova/all-MiniLM-L6-v2";
 const EMBEDDING_DIMENSION = 384;
 
 env.allowRemoteModels = true;
-env.cacheDir = "./.cache/transformers";
+env.cacheDir = process.env.VERCEL
+  ? join(tmpdir(), "transformers-cache")
+  : "./.cache/transformers";
 
 let extractorPromise: Promise<any> | null = null;
 
