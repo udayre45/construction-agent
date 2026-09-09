@@ -1,0 +1,101 @@
+{
+  "version": 1,
+  "description": "Frozen MVP regression set derived from Salesforce data mirrored to Supabase on 2026-09-09.",
+  "cases": [
+    {
+      "id": "permits-seattle-count",
+      "category": "permits",
+      "question": "How many permits are in Seattle?",
+      "must_contain": ["209", "Seattle"]
+    },
+    {
+      "id": "permits-sf-count",
+      "category": "permits",
+      "question": "How many permits are in San Francisco?",
+      "must_contain": ["209", "San Francisco"]
+    },
+    {
+      "id": "permits-seattle-types",
+      "category": "permits",
+      "question": "What permit types exist in Seattle?",
+      "must_contain": ["Construction", "Demolition", "Site Development"]
+    },
+    {
+      "id": "permits-seattle-issued",
+      "category": "permits",
+      "question": "How many Seattle permits have the status Permit Issued?",
+      "must_contain": ["25", "Permit Issued"]
+    },
+    {
+      "id": "permits-sf-issued",
+      "category": "permits",
+      "question": "How many San Francisco permits have issued status?",
+      "must_contain": ["139", "issued"]
+    },
+    {
+      "id": "projects-all-budget",
+      "category": "projects",
+      "question": "What is the total budget of all construction projects, and how many projects are there?",
+      "must_contain": ["74590000", "15"]
+    },
+    {
+      "id": "projects-seattle-budget",
+      "category": "projects",
+      "question": "How many Seattle projects are there and what is their total budget?",
+      "must_contain": ["8", "40150000", "Seattle"]
+    },
+    {
+      "id": "projects-sf-budget",
+      "category": "projects",
+      "question": "How many San Francisco projects are there and what is their total budget?",
+      "must_contain": ["7", "34440000", "San Francisco"]
+    },
+    {
+      "id": "projects-seattle-delayed",
+      "category": "projects",
+      "question": "Which Seattle projects are delayed?",
+      "must_contain": ["Capitol Hill Apartments"]
+    },
+    {
+      "id": "projects-sf-delayed",
+      "category": "projects",
+      "question": "Which San Francisco projects are delayed?",
+      "must_contain": ["Sunset District Duplex Rebuild", "Nob Hill Hotel Renovation"]
+    },
+    {
+      "id": "contract-rainier-payment",
+      "category": "contracts",
+      "question": "What are the payment terms in Rainier Elevator Subcontract #1022? Cite the contract.",
+      "must_contain": ["Rainier Elevator Subcontract #1022", "net 45"],
+      "must_contain_any": [["10%", "10 percent"]]
+    },
+    {
+      "id": "contract-rainier-warranty",
+      "category": "contracts",
+      "question": "What warranty applies in Rainier Elevator Subcontract #1022? Cite the contract.",
+      "must_contain": ["Rainier Elevator Subcontract #1022"],
+      "must_contain_any": [["12 months", "12-month"]]
+    },
+    {
+      "id": "contract-soma-law",
+      "category": "contracts",
+      "question": "Who is the party and what law governs SoMa Structural Steel Subcontract #1002?",
+      "must_contain": ["SoMa Structural Steel Subcontract #1002", "Granite Structural Steel Inc", "California"]
+    },
+    {
+      "id": "negative-chicago-elevator",
+      "category": "negative",
+      "question": "What is the warranty on the elevator in Chicago?",
+      "must_contain": ["Chicago"],
+      "must_contain_any": [["not available", "unavailable", "cannot confirm", "do not have", "don't have"]],
+      "must_not_contain": ["12 months", "12-month"]
+    },
+    {
+      "id": "negative-austin-permits",
+      "category": "negative",
+      "question": "What permits apply to a new construction project in Austin, Texas?",
+      "must_contain": ["Austin"],
+      "must_contain_any": [["not available", "no matching", "do not have", "don't have"]]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+# Dependencies and build output
+node_modules/
+.next/
+dist/
+coverage/
+
+# Local secrets
+.env
+.env.*
+!.env.example
+
+# Local model and tool caches
+.cache/
+.tools/
+
+# Deployment and logs
+.vercel/
+*.log
+npm-debug.log*
+
+# Editor and operating-system files
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
