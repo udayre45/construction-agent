@@ -1,0 +1,9 @@
+.env
+.env.*
+.cache/
+.tools/
+.next/
+.git/
+node_modules/
+*.log
+*.tsbuildinfo
