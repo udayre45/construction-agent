@@ -110,9 +110,10 @@ Prepare the local Phase 6 invoice sample and test one image with Claude Vision:
 ```powershell
 npm run invoice:sample
 npm run invoice:vision
+npm run invoice:vision:batch -- --limit 5
 ```
 
-The sample command audits the downloaded ZIP and extracts 20 deterministic annotated image pairs into the Git-ignored `data/invoice-sample` directory. The vision command extracts one invoice and compares reliable fields with the dataset ground truth.
+The sample command audits the downloaded ZIP and extracts 20 deterministic annotated image pairs into the Git-ignored `data/invoice-sample` directory. The vision command extracts one invoice. The batch command compares every labeled line-item description, quantity, and gross total, along with invoice-level fields, while saving a detailed local report.
 
 ## Verification strategy
 
@@ -138,4 +139,4 @@ Permit and project requests do not load the embedding model. The first contract 
 
 ## Current scope
 
-The core permit, project, and contract MVP is deployed. Phase 6 data preparation found 1,414 valid annotated image pairs among 1,489 Batch 1 images. The first Claude Vision smoke test passed all nine ground-truth comparisons. Purchase-order loading and line-item spend queries remain gated on a multi-invoice extraction evaluation.
+The core permit, project, and contract MVP is deployed. Phase 6 data preparation found 1,414 valid annotated image pairs among 1,489 Batch 1 images. The first five-sample Claude Vision pilot passed all 78 scored field comparisons. Purchase-order loading and line-item spend queries remain gated on completing and reviewing the 20-sample extraction evaluation.
