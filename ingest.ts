@@ -5,7 +5,7 @@
  * Run: npx tsx ingest.ts
  */
 import "dotenv/config";
-import jsforce from "jsforce";
+import jsforce, { type Connection } from "jsforce";
 import { createClient } from "@supabase/supabase-js";
 import { embed } from "./lib/embed";
 
@@ -100,7 +100,7 @@ function createSalesforceConnection() {
   return new jsforce.Connection({ loginUrl });
 }
 
-async function queryAll(conn: jsforce.Connection, soql: string): Promise<any[]> {
+async function queryAll(conn: Connection, soql: string): Promise<any[]> {
   let result = await conn.query(soql);
   let records: any[] = [...result.records];
 

@@ -1,10 +1,16 @@
 {
   "name": "construction-agent",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Construction data Q&A agent for permits, projects, and contracts",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "next dev",
+    "build": "next build --webpack",
+    "start": "next start",
+    "ingest": "tsx ingest.ts",
+    "agent": "tsx test.ts",
+    "eval": "tsx eval/run.ts",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
@@ -16,9 +22,15 @@
     "@supabase/supabase-js": "^2.116.0",
     "dotenv": "^17.4.2",
     "jsforce": "^3.10.25",
+    "next": "^16.3.4",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "tsx": "^4.23.13"
   },
   "devDependencies": {
-    "@types/node": "^26.5.0"
+    "@types/node": "^26.5.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2"
   }
 }
