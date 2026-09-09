@@ -110,6 +110,11 @@ export async function dispatch(name: string, rawInput: unknown) {
     }
 
     const facetRows = facetResult.data ?? [];
+    const totalMatching = sampleResult.count ?? 0;
+    const missingPermitType = facetRows.filter(
+      (row) => !row.permit_type?.trim()
+    ).length;
+    const missingStatus = facetRows.filter((row) => !row.status?.trim()).length;
     const permitTypes = [
       ...new Set(facetRows.map((row) => row.permit_type).filter(Boolean)),
     ].sort();
@@ -123,10 +128,12 @@ export async function dispatch(name: string, rawInput: unknown) {
     );
 
     return {
-      total_matching: sampleResult.count ?? 0,
+      total_matching: totalMatching,
       permit_types: permitTypes,
       status_counts: statusCounts,
-      facets_complete: (sampleResult.count ?? 0) <= 1000,
+      missing_permit_type: missingPermitType,
+      missing_status: missingStatus,
+      facets_complete: totalMatching <= 1000 && facetRows.length === totalMatching,
       sample: sampleResult.data ?? [],
     };
   }

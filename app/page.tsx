@@ -1,10 +1,23 @@
 "use client";
 
 import { FormEvent, useRef, useState } from "react";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+
+type EvidenceField = { label: string; value: string };
+type EvidenceRecord = { title: string; fields: EvidenceField[] };
+type EvidenceGroup = {
+  title: string;
+  source: string;
+  filters: EvidenceField[];
+  metrics: EvidenceField[];
+  records: EvidenceRecord[];
+};
 
 type Message = {
   role: "user" | "assistant";
   text: string;
+  evidence?: EvidenceGroup[];
 };
 
 const examples = [
@@ -36,7 +49,11 @@ export default function Home() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: trimmed, history }),
       });
-      const data = (await response.json()) as { answer?: string; error?: string };
+      const data = (await response.json()) as {
+        answer?: string;
+        evidence?: EvidenceGroup[];
+        error?: string;
+      };
 
       if (!response.ok || !data.answer) {
         throw new Error(data.error || "The agent returned an empty response.");
@@ -44,7 +61,11 @@ export default function Home() {
 
       setMessages((current) => [
         ...current,
-        { role: "assistant", text: data.answer as string },
+        {
+          role: "assistant",
+          text: data.answer as string,
+          evidence: data.evidence ?? [],
+        },
       ]);
     } catch (requestError) {
       setError(
@@ -98,7 +119,67 @@ export default function Home() {
             messages.map((message, index) => (
               <article className={`message ${message.role}`} key={`${message.role}-${index}`}>
                 <span>{message.role === "user" ? "You" : "Agent"}</span>
-                <p>{message.text}</p>
+                {message.role === "assistant" ? (
+                  <div className="message-body markdown">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>{message.text}</ReactMarkdown>
+                  </div>
+                ) : (
+                  <p className="message-body">{message.text}</p>
+                )}
+                {message.evidence?.map((group, groupIndex) => (
+                  <details className="evidence" key={`${group.title}-${groupIndex}`}>
+                    <summary>
+                      <strong>Sources &amp; evidence</strong>
+                      <small>{group.source}</small>
+                    </summary>
+                    <div className="evidence-content">
+                      {group.filters.length > 0 && (
+                        <div>
+                          <h3>Query filters</h3>
+                          <dl className="evidence-grid">
+                            {group.filters.map((field) => (
+                              <div key={`${field.label}-${field.value}`}>
+                                <dt>{field.label}</dt>
+                                <dd>{field.value}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                        </div>
+                      )}
+                      <div>
+                        <h3>Verified results</h3>
+                        <dl className="evidence-grid">
+                          {group.metrics.map((field) => (
+                            <div key={`${field.label}-${field.value}`}>
+                              <dt>{field.label}</dt>
+                              <dd>{field.value}</dd>
+                            </div>
+                          ))}
+                        </dl>
+                      </div>
+                      {group.records.length > 0 && (
+                        <div>
+                          <h3>Supporting records</h3>
+                          <div className="evidence-records">
+                            {group.records.map((record, recordIndex) => (
+                              <article key={`${record.title}-${recordIndex}`}>
+                                <h4>{record.title}</h4>
+                                <dl>
+                                  {record.fields.map((field) => (
+                                    <div key={`${field.label}-${field.value}`}>
+                                      <dt>{field.label}</dt>
+                                      <dd>{field.value}</dd>
+                                    </div>
+                                  ))}
+                                </dl>
+                              </article>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  </details>
+                ))}
               </article>
             ))
           )}

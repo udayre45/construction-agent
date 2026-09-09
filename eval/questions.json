@@ -1,12 +1,13 @@
 {
-  "version": 1,
+  "version": 2,
   "description": "Frozen MVP regression set derived from Salesforce data mirrored to Supabase on 2026-09-09.",
   "cases": [
     {
       "id": "permits-seattle-count",
       "category": "permits",
       "question": "How many permits are in Seattle?",
-      "must_contain": ["209", "Seattle"]
+      "must_contain": ["209", "Seattle"],
+      "must_not_contain": ["all fall under the \"Construction\" permit type", "only Construction permits"]
     },
     {
       "id": "permits-sf-count",
@@ -25,6 +26,13 @@
       "category": "permits",
       "question": "How many Seattle permits have the status Permit Issued?",
       "must_contain": ["25", "Permit Issued"]
+    },
+    {
+      "id": "permits-seattle-status-breakdown",
+      "category": "permits",
+      "question": "Give me the complete status breakdown for all Seattle permits, including missing statuses.",
+      "must_contain": ["209", "37"],
+      "must_contain_any": [["not provided", "missing", "no status"]]
     },
     {
       "id": "permits-sf-issued",
@@ -95,7 +103,7 @@
       "category": "negative",
       "question": "What permits apply to a new construction project in Austin, Texas?",
       "must_contain": ["Austin"],
-      "must_contain_any": [["not available", "no matching", "do not have", "don't have"]]
+      "must_contain_any": [["not available", "no matching", "no information available", "do not have", "don't have"]]
     }
   ]
 }

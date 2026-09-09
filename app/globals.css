@@ -149,7 +149,7 @@ h1 {
   text-transform: uppercase;
 }
 
-.message p {
+.message-body {
   margin: 0;
   padding: 13px 16px;
   border: 1px solid var(--line);
@@ -157,6 +157,46 @@ h1 {
   background: #fff;
   line-height: 1.55;
   white-space: pre-wrap;
+}
+
+.markdown > :first-child {
+  margin-top: 0;
+}
+
+.markdown > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown p {
+  margin: 0 0 12px;
+}
+
+.markdown ul,
+.markdown ol {
+  margin: 8px 0 12px;
+  padding-left: 24px;
+}
+
+.markdown li + li {
+  margin-top: 4px;
+}
+
+.markdown table {
+  width: 100%;
+  margin: 10px 0 12px;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+}
+
+.markdown th,
+.markdown td {
+  padding: 7px 9px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.markdown th {
+  background: var(--green-soft);
 }
 
 .message.user {
@@ -167,7 +207,7 @@ h1 {
   text-align: right;
 }
 
-.message.user p {
+.message.user .message-body {
   border-color: var(--green);
   border-radius: 14px 4px 14px 14px;
   color: #fff;
@@ -177,6 +217,96 @@ h1 {
 .thinking p {
   color: var(--muted);
   font-style: italic;
+}
+
+.evidence {
+  margin-top: 8px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #f9fbf8;
+}
+
+.evidence summary {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 11px 13px;
+  color: var(--green-dark);
+  cursor: pointer;
+  list-style-position: inside;
+}
+
+.evidence summary small {
+  color: var(--muted);
+  font-weight: 400;
+  text-align: right;
+}
+
+.evidence-content {
+  display: grid;
+  gap: 18px;
+  padding: 4px 13px 14px;
+  border-top: 1px solid var(--line);
+}
+
+.evidence-content h3 {
+  margin: 14px 0 8px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin: 0;
+}
+
+.evidence-grid > div,
+.evidence-records article {
+  padding: 9px 10px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.evidence dt {
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.evidence dd {
+  margin: 3px 0 0;
+  overflow-wrap: anywhere;
+  line-height: 1.4;
+}
+
+.evidence-records {
+  display: grid;
+  gap: 8px;
+}
+
+.evidence-records h4 {
+  margin: 0 0 7px;
+  color: var(--green-dark);
+  font-size: 0.9rem;
+}
+
+.evidence-records dl,
+.evidence-records dl > div {
+  margin: 0;
+}
+
+.evidence-records dl > div {
+  display: grid;
+  grid-template-columns: 95px 1fr;
+  gap: 8px;
+  padding: 3px 0;
 }
 
 .composer {
@@ -261,6 +391,18 @@ h1 {
 
   .message {
     max-width: 92%;
+  }
+
+  .evidence-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .evidence summary {
+    flex-direction: column;
+  }
+
+  .evidence summary small {
+    text-align: left;
   }
 
   .composer {
